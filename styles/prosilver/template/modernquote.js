@@ -21,10 +21,8 @@
         } else {
             var selected = window.getSelection();
             var selectedText = selected.toString();
-	
-            window.location.href = './posting.php?mode=quote&f=' + forum_id + '&p=' + post_id + '&post_text=' + selectedText;
-            
-//            http://localhost:8888/cmbb/phpBB3/posting.php?mode=quote&f=6&p=6032
+            var quote_url = post.find('.post-buttons i.fa-quote-left').parents('a.button').attr('href');
+            window.location.href = quote_url + '&post_text=' + selectedText;
         }
 	
         
