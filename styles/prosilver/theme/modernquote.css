@@ -1,6 +1,10 @@
 .floatquote {
     display: block;
-    position: absolute;
+/*    position: absolute;
     right: -20px;
-    top: 8%;
+    top: 8%;*/
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    
 }

@@ -1,5 +1,7 @@
 services:
     ger.modernquote.listener:
         class: ger\modernquote\event\main_listener
+        arguments:
+            - '@request'
         tags:
             - { name: event.listener }
