@@ -5,6 +5,14 @@
 	var selectedText = selected.toString();
 	if (selectedText) {
 	    $(this).parents('.postbody').prepend(quotebtn);
+            
+            var offset = $(this).offset();
+            var relativeX = (e.pageX - offset.left);
+            var relativeY = (e.pageY - offset.top);
+            $('.floatquote').css({
+                    'margin-top': relativeY,
+                    'margin-left': relativeX
+                })
 	}
     });
     $('.postbody').on('click', '.floatquote', function(e) {
