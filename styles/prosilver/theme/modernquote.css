@@ -1,3 +1,15 @@
 .floatquote {
     position: absolute;
 }
+.floatquote.multi {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.active-quote {
+    border-color: #0A8ED0;
+}
+.active-quote .icon {
+    color: #0A8ED0;
+}

@@ -3,5 +3,9 @@ services:
         class: ger\modernquote\event\main_listener
         arguments:
             - '@request'
+            - '@config'
+            - '@content.visibility'
+            - '@dbal.conn'
+            - '@text_formatter.utils'
         tags:
             - { name: event.listener }

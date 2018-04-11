@@ -1,5 +1,6 @@
 # Modern quote
-This extension enables you to highlight parts of posts to quote, similar to the working of quoting from the topic review.
+This extension enables you to highlight parts of posts to quote, similar to the working of quoting from the topic review. 
+It also adds a multiquote button to enable you to quote several posts from a page
 
 ## Installation
 
