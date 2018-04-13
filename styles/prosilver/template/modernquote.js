@@ -2,6 +2,7 @@ var multiquote_ary = [];
 (function ($) {
     $('.multiquote').click(function(e) {
         $('.floatquote').remove();
+        $('.multiquote-wrap').remove();
 
         var post_id = $(this).attr('data-post-id');
         multiquote_ary = multiquote_ary.filter(function(item) {
@@ -15,11 +16,11 @@ var multiquote_ary = [];
         }
         
         if (multiquote_ary.length) {
-            $('#wrap').append(quotebtn);
+            $('#wrap').append('<div class="multiquote-wrap">' + quotebtn + '</div>');
             var quote_url = $('#page-body').find('.post-buttons i.fa-quote-left').first().parents('a.button').attr('href') + '&multiquote=' + multiquote_ary.join(';');
             $('.floatquote').attr('href', quote_url);
             $('.floatquote').addClass('multi');
-            
+            $('.floatquote .icon').before(' (' + multiquote_ary.length + ') ')
         }
     });
     
@@ -53,9 +54,10 @@ var multiquote_ary = [];
             var post = $(this).parents('.post');
             var post_id = post.prop('id').replace(/[^0-9]/g, '');
             if ($('.floatquote').hasClass('qr')) {
-                var username = post.find('.username-coloured').first().text();
-                var poster_id = post.find('.row_poster_id').text();
-                var post_time = post.find('.row_post_time').text();
+                var postdetails = post.find('.postdetails');
+                var username = postdetails.attr('data-poster-name');
+                var poster_id = postdetails.attr('data-poster-id');
+                var post_time = postdetails.attr('data-posttime');
                 addquote(post_id, username, '{LA_WROTE}', {post_id:post_id, time:post_time, user_id:poster_id});
                 $('.floatquote').remove();
             } else {

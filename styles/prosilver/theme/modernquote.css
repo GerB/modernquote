@@ -1,12 +1,18 @@
 .floatquote {
     position: absolute;
 }
-.floatquote.multi {
+.multiquote-wrap {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    border: 2px solid #12A3EB;
+    border-radius: 7px;
+    padding: 10px;
+    background-color: #fff;
 }
-
+.multiquote-wrap .floatquote {
+    position: static;
+}
 .active-quote {
     border-color: #0A8ED0;
 }
