@@ -16,7 +16,7 @@ var multiquote_ary = [];
         }
         
         if (multiquote_ary.length) {
-            $('#wrap').append('<div class="multiquote-wrap">' + quotebtn + '</div>');
+            $('#wrap').append('<div class="multiquote-wrap"><p>' + l_mq_multiquote_action + '</p>' + quotebtn + '</div>');
             var quote_url = $('#page-body').find('.post-buttons i.fa-quote-left').first().parents('a.button').attr('href') + '&multiquote=' + multiquote_ary.join(';');
             $('.floatquote').attr('href', quote_url);
             $('.floatquote').addClass('multi');
@@ -27,18 +27,19 @@ var multiquote_ary = [];
     
     $('.postbody .content').mouseup(function(e) {
 	$('.floatquote').remove();
+        $('.multiquote-wrap').remove();
 	var selected = window.getSelection();
 	var selectedText = selected.toString();
 	if (selectedText) {
 	    $(this).parents('.postbody').prepend(quotebtn);
-            
+            $('.floatquote').attr('title', l_mq_quote_selection);
             var offset = $(this).offset();
             var relativeX = (e.pageX - offset.left);
             var relativeY = (e.pageY - offset.top);
             $('.floatquote').css({
                     'margin-top': relativeY,
                     'margin-left': relativeX
-                })
+                });
 	}
     });
     $('.postbody').on('click', '.floatquote', function(e) {
@@ -60,6 +61,7 @@ var multiquote_ary = [];
                 var post_time = postdetails.attr('data-posttime');
                 addquote(post_id, username, '{LA_WROTE}', {post_id:post_id, time:post_time, user_id:poster_id});
                 $('.floatquote').remove();
+                $('.multiquote-wrap').remove();
             } else {
                 var selected = window.getSelection();
                 var selectedText = selected.toString();

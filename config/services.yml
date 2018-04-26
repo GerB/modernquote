@@ -7,5 +7,6 @@ services:
             - '@content.visibility'
             - '@dbal.conn'
             - '@text_formatter.utils'
+            - '@language'
         tags:
             - { name: event.listener }

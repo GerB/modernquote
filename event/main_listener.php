@@ -25,6 +25,7 @@ class main_listener implements EventSubscriberInterface
     protected $phpbb_content_visibility;
     protected $db;
     protected $bbcode_utils;
+    protected $lang;
     
     static public function getSubscribedEvents()
     {
@@ -35,13 +36,14 @@ class main_listener implements EventSubscriberInterface
         );
     }
 
-    public function __construct(\phpbb\request\request $request, \phpbb\config\config $config, \phpbb\content_visibility $phpbb_content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\textformatter\s9e\utils $bbcode_utils)
+    public function __construct(\phpbb\request\request $request, \phpbb\config\config $config, \phpbb\content_visibility $phpbb_content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\textformatter\s9e\utils $bbcode_utils, \phpbb\language\language $lang)
     {
         $this->request = $request;
         $this->config = $config;
         $this->phpbb_content_visibility = $phpbb_content_visibility;
         $this->db = $db;
         $this->bbcode_utils = $bbcode_utils;
+        $this->lang = $lang;
     }
     
     /**
@@ -49,6 +51,7 @@ class main_listener implements EventSubscriberInterface
      */
     public function add_vars($event)
     {
+        $this->lang->add_lang('common', 'ger/modernquote');
         $post_row = $event['post_row'];
         $post_row['POST_TIME'] = $event['row']['post_time'];
         $event['post_row'] = $post_row;
