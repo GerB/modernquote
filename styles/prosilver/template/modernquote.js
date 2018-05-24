@@ -30,7 +30,7 @@ var multiquote_ary = [];
         $('.multiquote-wrap').remove();
 	var selected = window.getSelection();
 	var selectedText = selected.toString();
-	if (selectedText) {
+	if (selectedText && (selectedText.length < 6000)) {
 	    $(this).parents('.postbody').prepend(quotebtn);
             $('.floatquote').attr('title', l_mq_quote_selection);
             var offset = $(this).offset();
