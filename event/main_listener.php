@@ -81,7 +81,7 @@ class main_listener implements EventSubscriberInterface
     {
         if (($event['mode'] == 'quote') && $this->config['allow_bbcode'])
         {
-            $multiquote = $this->request->variable('multiquote', '');
+            $multiquote = $this->request->variable('multiquote', '', true);
             if (strlen($multiquote) > 0)
             {
                 $posts = explode(';', $multiquote);
@@ -91,9 +91,10 @@ class main_listener implements EventSubscriberInterface
                 $output = '';
                 foreach ($posts as $post_id)
                 {
+                    $pid = (int) $post_id;
                     $sql = 'SELECT p.*, u.username
                     FROM ' . POSTS_TABLE . ' p, ' . USERS_TABLE . " u
-                    WHERE p.post_id = $post_id
+                    WHERE p.post_id = $pid
                         AND u.user_id = p.poster_id
                         AND " . $this->phpbb_content_visibility->get_visibility_sql('post', $event['forum_id'], 'p.');
                     
