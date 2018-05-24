@@ -64,7 +64,7 @@ class main_listener implements EventSubscriberInterface
     {
         if ($event['mode'] == 'quote')
         {
-            $post_text = $this->request->variable('post_text', '');
+            $post_text = $this->request->variable('post_text', '', true);
             if (strlen($post_text) > 0) 
             {
                 $post_data = $event['post_data'];

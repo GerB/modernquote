@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "Shows and loads new posts in viewtopic",
     "homepage": "",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "time": "2018-05-24",
     "license": "GPL-2.0",
     "authors": [

@@ -47,7 +47,6 @@ var multiquote_ary = [];
         
         if ($('.floatquote').hasClass('multi')) {
             var quote_url = $('#page-body').find('.post-buttons i.fa-quote-left').first().parents('a.button').attr('href');
-            console.log(quote_url + '&multiquote=' + multiquote_ary.join(';'));
             window.location.href = quote_url ;
 
         } else {
