@@ -17,7 +17,7 @@ var multiquote_ary = [];
         
         if (multiquote_ary.length) {
             $('#wrap').append('<div class="multiquote-wrap"><p>' + l_mq_multiquote_action + '</p>' + quotebtn + '</div>');
-            var quote_url = $('#page-body').find('.post-buttons i.fa-quote-left').first().parents('a.button').attr('href') + '&multiquote=' + multiquote_ary.join(';');
+            var quote_url = $('#page-body').find('i.fa-quote-left').first().parents('a.button').attr('href') + '&multiquote=' + multiquote_ary.join(';');
             $('.floatquote').attr('href', quote_url);
             $('.floatquote').addClass('multi');
             $('.floatquote .icon').before(' (' + multiquote_ary.length + ') ')
@@ -46,15 +46,15 @@ var multiquote_ary = [];
 	e.preventDefault();
         
         if ($('.floatquote').hasClass('multi')) {
-            var quote_url = $('#page-body').find('.post-buttons i.fa-quote-left').first().parents('a.button').attr('href');
+            var quote_url = $('#page-body').find('i.fa-quote-left').first().parents('a.button').attr('href');
             window.location.href = quote_url ;
 
         } else {
             // Gather data
             var post = $(this).parents('.post');
             var post_id = post.prop('id').replace(/[^0-9]/g, '');
+            var postdetails = post.find('.postdetails');
             if ($('.floatquote').hasClass('qr')) {
-                var postdetails = post.find('.postdetails');
                 var username = postdetails.attr('data-poster-name');
                 var poster_id = postdetails.attr('data-poster-id');
                 var post_time = postdetails.attr('data-posttime');
@@ -64,7 +64,7 @@ var multiquote_ary = [];
             } else {
                 var selected = window.getSelection();
                 var selectedText = selected.toString();
-                var quote_url = post.find('.post-buttons i.fa-quote-left').parents('a.button').attr('href');
+                var quote_url = postdetails.attr('data-quote-url');
                 window.location.href = quote_url + '&post_text=' + selectedText;
             }
         }
