@@ -81,7 +81,7 @@ class main_listener implements EventSubscriberInterface
     {
         if (($event['mode'] == 'quote') && $this->config['allow_bbcode'])
         {
-            $multiquote = $this->request->variable('multiquote', '', true);
+            $multiquote = $this->request->variable('multiquote', '');
             if (strlen($multiquote) > 0)
             {
                 $posts = explode(';', $multiquote);
