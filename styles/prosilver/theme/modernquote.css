@@ -20,3 +20,6 @@
 .active-quote .icon {
     color: #0A8ED0;
 }
+.mqbtn {
+    cursor: pointer;
+}

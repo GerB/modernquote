@@ -20,6 +20,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+    'MQ_CLEAR'                 => 'Clear',
     'MQ_MULTI_QUOTE_SELECT'    => 'Select to quote multiple posts',
     'MQ_MULTI_QUOTE_ACTION'    => 'Reply with selected quotes',
     'MQ_QUOTE_SELECTION'       => 'Quote selection',

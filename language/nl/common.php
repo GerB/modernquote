@@ -20,6 +20,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+    'MQ_CLEAR'                 => 'Leegmaken',
     'MQ_MULTI_QUOTE_SELECT'    => 'Selecteer om meerdere berichten te citeren',
     'MQ_MULTI_QUOTE_ACTION'    => 'Reageer met geselecteerde citaten',
     'MQ_QUOTE_SELECTION'       => 'Citeer selectie',
