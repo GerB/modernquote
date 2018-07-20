@@ -4,7 +4,7 @@
     "description": "Shows and loads new posts in viewtopic",
     "homepage": "",
     "version": "0.0.8",
-    "time": "2018-06-21",
+    "time": "2018-07-20",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -21,7 +21,7 @@
     "extra": {
         "display-name": "Modern quote",
         "soft-require": {
-            "phpbb/phpbb": ">=3.2,<3.3.0@dev"
+            "phpbb/phpbb": ">=3.2.0"
         }
     }
 }
