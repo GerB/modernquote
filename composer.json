@@ -3,9 +3,9 @@
     "type": "phpbb-extension",
     "description": "Shows and loads new posts in viewtopic",
     "homepage": "",
-    "version": "1.0.0",
-    "time": "2018-07-20",
-    "license": "GPL-2.0",
+    "version": "1.0.1",
+    "time": "2018-08-03",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Ger",

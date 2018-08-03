@@ -1,7 +1,19 @@
+// Init
+var fqcookie = cookie_name +'_fqcookie';
 var multiquote_ary = [];
 var mqcookie = 'mqcookie';
 
-// Set cookie
+// Set floatquote cookie
+function setfqcookie(val) {
+    // clear anything in it first
+    document.cookie = fqcookie + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=' + cookie_path;
+    var d = new Date();
+    d.setTime(d.getTime() + (30*1000)); // 30 secs
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = fqcookie + "=" + encodeURIComponent(val) + "; " + expires + "; path=" + cookie_path;
+}
+
+// Set multiquote cookie
 function setmqcookie() {
     var d = new Date();
     d.setTime(d.getTime() + (24*3600*1000)); // 1 day
@@ -10,10 +22,10 @@ function setmqcookie() {
     if (multiquote_ary.length) { 
         newval = multiquote_ary.join("|");
     }
-    document.cookie = mqcookie + "=" + newval + "; " + expires + "; path=/";
+    document.cookie = mqcookie + "=" + newval + "; " + expires + "; path=" + cookie_path;
 }
 
-// Get cookie content and load in array
+// Get multiquote cookie content and load in array
 function getmqcookie() {
     var nameEQ = mqcookie + "=";
 	var allcookies = document.cookie.split(';');
@@ -33,7 +45,7 @@ function getmqcookie() {
 }
 // Clearh cookie
 function clearmqcookie() {
-    document.cookie = mqcookie + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    document.cookie = mqcookie + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=' + cookie_path;
     multiquote_ary = [];
 }
 
@@ -66,7 +78,7 @@ function mqClear() {
     // Load any quotes from cookie when doc ready
     getmqcookie();
     showmqdiv();
-
+    
     // Handle multiquotes
     $('.multiquote').click(function (e) {
         $('.floatquote').remove();
@@ -93,7 +105,7 @@ function mqClear() {
         $('.multiquote-wrap').remove();
         var selected = window.getSelection();
         var selectedText = selected.toString();
-        if (selectedText && (selectedText.length < 6000)) {
+        if (selectedText) {
             $(this).parents('.postbody').prepend(quotebtn);
             $('.floatquote').attr('title', l_mq_quote_selection);
             var offset = $(this).offset();
@@ -113,17 +125,18 @@ function mqClear() {
         var post_id = post.prop('id').replace(/[^0-9]/g, '');
         var postdetails = post.find('.postdetails');
         if ($('.floatquote').hasClass('qr')) {
+            // Use built-in method 
             var username = postdetails.attr('data-poster-name');
             var poster_id = postdetails.attr('data-poster-id');
             var post_time = postdetails.attr('data-posttime');
-            addquote(post_id, username, '{LA_WROTE}', {post_id: post_id, time: post_time, user_id: poster_id});
+            addquote(post_id, username, l_wrote, {post_id: post_id, time: post_time, user_id: poster_id});
             $('.floatquote').remove();
             $('.multiquote-wrap').remove();
         } else {
             var selected = window.getSelection();
-            var selectedText = selected.toString();
+            setfqcookie(selected.toString());
             var quote_url = postdetails.attr('data-quote-url');
-            window.location.href = quote_url + '&post_text=' + selectedText;
+            window.location.href = quote_url;
         }
         
     });

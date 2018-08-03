@@ -22,39 +22,71 @@ class main_listener implements EventSubscriberInterface
 {
     protected $request;
     protected $config;
+    protected $user;
+    protected $template;
     protected $phpbb_content_visibility;
     protected $db;
     protected $bbcode_utils;
     protected $lang;
-    
+    protected $fqcookie_suffix = '_fqcookie';
+    protected $fqcookie_full = '';
+
+
     static public function getSubscribedEvents()
     {
         return array(
             'core.modify_posting_auth'          => 'override_post_text',
             'core.posting_modify_template_vars' => 'get_multiquote_content',
-            'core.viewtopic_modify_post_row'	=> 'add_vars',
+            'core.viewtopic_modify_post_row'	=> 'add_post_row_vars',
+            'core.viewtopic_modify_page_title'	=> 'add_viewtopic_vars',
         );
     }
 
-    public function __construct(\phpbb\request\request $request, \phpbb\config\config $config, \phpbb\content_visibility $phpbb_content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\textformatter\s9e\utils $bbcode_utils, \phpbb\language\language $lang)
+    public function __construct(
+        \phpbb\request\request $request, 
+        \phpbb\config\config $config,
+        \phpbb\user $user,
+        \phpbb\template\template $template,
+        \phpbb\content_visibility $phpbb_content_visibility, 
+        \phpbb\db\driver\driver_interface $db, 
+        \phpbb\textformatter\s9e\utils $bbcode_utils, 
+        \phpbb\language\language $lang)
     {
         $this->request = $request;
         $this->config = $config;
+        $this->user = $user;
+        $this->template = $template;
         $this->phpbb_content_visibility = $phpbb_content_visibility;
         $this->db = $db;
         $this->bbcode_utils = $bbcode_utils;
         $this->lang = $lang;
+        
+        $this->fqcookie_full = $this->config['cookie_name'] . $this->fqcookie_suffix;
     }
     
     /**
      * Add post time to topic row
      */
-    public function add_vars($event)
+    public function add_post_row_vars($event)
     {
         $this->lang->add_lang('common', 'ger/modernquote');
         $post_row = $event['post_row'];
         $post_row['POST_TIME'] = $event['row']['post_time'];
         $event['post_row'] = $post_row;
+    }
+    
+    
+    /**
+     * Assign cookie name to template and clear anything in FQ cookie
+     */
+    public function add_viewtopic_vars($event)
+    {
+        $this->template->assign_vars(array(
+            'COOKIE_NAME' => $this->config['cookie_name'],
+            'COOKIE_PATH' => $this->config['cookie_path'],
+        ));
+        
+        $this->clear_fqcookie();
     }
     
     /**
@@ -64,7 +96,8 @@ class main_listener implements EventSubscriberInterface
     {
         if ($event['mode'] == 'quote')
         {
-            $post_text = $this->request->variable('post_text', '', true);
+            $post_text = $this->request->variable($this->fqcookie_full, '', true, \phpbb\request\request_interface::COOKIE);
+            $this->clear_fqcookie();
             if (strlen($post_text) > 0) 
             {
                 $post_data = $event['post_data'];
@@ -156,5 +189,14 @@ class main_listener implements EventSubscriberInterface
         $message_parser->message .= "\n\n";
         
         return $message_parser->message;
+    }
+    
+    /**
+     * Clear float quote cookie, mimics ucp delete cookies in the most simple way
+     */
+    private function clear_fqcookie()
+    {
+        $set_time = time() - 31536000;
+        $this->user->set_cookie($this->fqcookie_full, 'ddd', $set_time);
     }
 }

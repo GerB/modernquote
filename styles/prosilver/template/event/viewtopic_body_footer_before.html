@@ -11,13 +11,18 @@
     <script type="text/javascript">
     // <![CDATA[
         var quotebtn = '<a class="button button-icon-only floatquote" onclick="mqClear();" href="#" title="{LA_REPLY_WITH_QUOTE}">{LA_BUTTON_QUOTE} <i class="icon fa-quote-left fa-fw"></i></a>';
-        var clearbtn = ' <a class="mqbtn" onclick="mqClear();" title="{LA_MQ_CLEAR}"><i class="icon fa-trash fa-fw"></i></a>';
     // ]]>
     </script>
 <!-- ENDIF -->
 <script type="text/javascript">
-    var l_mq_multiquote_action = '{LA_MQ_MULTI_QUOTE_ACTION}';
-    var l_mq_quote_selection = '{LA_MQ_QUOTE_SELECTION}';
+    // <![CDATA[
+        var cookie_name = '{COOKIE_NAME}'
+        var cookie_path = '{COOKIE_PATH}'
+        var l_wrote = '{LA_WROTE}'
+        var l_mq_multiquote_action = '{LA_MQ_MULTI_QUOTE_ACTION}';
+        var l_mq_quote_selection = '{LA_MQ_QUOTE_SELECTION}';
+        var clearbtn = ' <a class="mqbtn" onclick="mqClear();" title="{LA_MQ_CLEAR}"><i class="icon fa-trash fa-fw"></i></a>';
+    // ]]>
 </script>
 <!-- INCLUDEJS modernquote.js -->
 <!-- INCLUDECSS @ger_modernquote/modernquote.css -->

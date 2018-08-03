@@ -4,6 +4,8 @@ services:
         arguments:
             - '@request'
             - '@config'
+            - '@user'
+            - '@template'
             - '@content.visibility'
             - '@dbal.conn'
             - '@text_formatter.utils'
