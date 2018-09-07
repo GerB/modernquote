@@ -138,6 +138,7 @@ function highlightbtn(element, relativeX, relativeY) {
     
     // Handle selective quote action 
     $('.postbody').on('click', '.floatquote', function (e) {
+        $('.postbody .content').removeClass('hasquotebtn');
         e.preventDefault();
         var post = $(this).parents('.post');
         var post_id = post.prop('id').replace(/[^0-9]/g, '');
