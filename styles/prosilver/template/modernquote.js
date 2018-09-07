@@ -84,10 +84,17 @@ function highlightbtn(element, relativeX, relativeY) {
         element.prepend(quotebtn);
         element.addClass('hasquotebtn');
         $('.floatquote').attr('title', l_mq_quote_selection);
-        $('.floatquote').css({
-            'margin-top': relativeY,
-            'margin-left': relativeX
-        });
+        if (relativeX > -1) {
+            $('.floatquote').css({
+                'margin-top': relativeY,
+                'margin-left': relativeX
+            });
+        } else {
+            $('.floatquote').css({
+                'margin-top': relativeY,
+                'left': '90%'
+            });
+        }
     }
 }
 
@@ -132,7 +139,7 @@ function highlightbtn(element, relativeX, relativeY) {
             var offset = $(this).offset();
             var relativeX = (e.originalEvent.changedTouches[0].pageX - offset.left);
             var relativeY = (e.originalEvent.changedTouches[0].pageY - offset.top) + 10; // Scaling
-            highlightbtn($(this), relativeX, relativeY);
+            highlightbtn($(this), -1, relativeY);
         }
     });
     
