@@ -92,7 +92,7 @@ function highlightbtn(element, relativeX, relativeY) {
         } else {
             $('.floatquote').css({
                 'margin-top': relativeY,
-                'left': '90%'
+                'left': 'calc(100% - ' + $('.floatquote').width() + 'px'
             });
         }
     }
