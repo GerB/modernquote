@@ -98,6 +98,16 @@ function highlightbtn(element, relativeX, relativeY) {
     }
 }
 
+function removebtns() {
+    var selected = window.getSelection();
+    var selectedText = selected.toString();
+    if (!selectedText) {
+        $('.floatquote').remove();
+        $('.postbody .content').removeClass('hasquotebtn');
+    }
+}
+
+
 (function ($) {
     // Load any quotes from cookie when doc ready
     getmqcookie();
@@ -130,6 +140,8 @@ function highlightbtn(element, relativeX, relativeY) {
             var relativeX = (e.pageX - offset.left);
             var relativeY = (e.pageY - offset.top);
             highlightbtn($(this), relativeX, relativeY);
+        } else {
+            removebtns();
         }
     });
     
@@ -137,9 +149,10 @@ function highlightbtn(element, relativeX, relativeY) {
     $('.postbody .content').on('touchend', function(e){
         if (!$(this).hasClass('hasquotebtn')) {
             var offset = $(this).offset();
-            var relativeX = (e.originalEvent.changedTouches[0].pageX - offset.left);
             var relativeY = (e.originalEvent.changedTouches[0].pageY - offset.top) + 10; // Scaling
             highlightbtn($(this), -1, relativeY);
+        } else {
+            removebtns();
         }
     });
     
