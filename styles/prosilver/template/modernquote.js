@@ -74,6 +74,23 @@ function mqClear() {
     $('.multiquote').removeClass('active-quote');
 }
 
+// Select text and show button
+function highlightbtn(element, relativeX, relativeY) {
+    $('.floatquote').remove();
+    $('.multiquote-wrap').remove();
+    var selected = window.getSelection();
+    var selectedText = selected.toString();
+    if (selectedText) {
+        element.prepend(quotebtn);
+        element.addClass('hasquotebtn');
+        $('.floatquote').attr('title', l_mq_quote_selection);
+        $('.floatquote').css({
+            'margin-top': relativeY,
+            'margin-left': relativeX
+        });
+    }
+}
+
 (function ($) {
     // Load any quotes from cookie when doc ready
     getmqcookie();
@@ -101,20 +118,21 @@ function mqClear() {
 
     // Highlight text for quote
     $('.postbody .content').mouseup(function (e) {
-        $('.floatquote').remove();
-        $('.multiquote-wrap').remove();
-        var selected = window.getSelection();
-        var selectedText = selected.toString();
-        if (selectedText) {
-            $(this).parents('.postbody').prepend(quotebtn);
-            $('.floatquote').attr('title', l_mq_quote_selection);
+        if (!$(this).hasClass('hasquotebtn')) {
             var offset = $(this).offset();
             var relativeX = (e.pageX - offset.left);
             var relativeY = (e.pageY - offset.top);
-            $('.floatquote').css({
-                'margin-top': relativeY,
-                'margin-left': relativeX
-            });
+            highlightbtn($(this), relativeX, relativeY);
+        }
+    });
+    
+    // Touchy variant
+    $('.postbody .content').on('touchend', function(e){
+        if (!$(this).hasClass('hasquotebtn')) {
+            var offset = $(this).offset();
+            var relativeX = (e.originalEvent.changedTouches[0].pageX - offset.left);
+            var relativeY = (e.originalEvent.changedTouches[0].pageY - offset.top) + 10; // Scaling
+            highlightbtn($(this), relativeX, relativeY);
         }
     });
     
