@@ -1,7 +1,7 @@
 // Init
-var fqcookie = cookie_name +'_fqcookie';
+var fqcookie = cookie_name + '_fqcookie';
 var multiquote_ary = [];
-var mqcookie = 'mqcookie';
+var mqcookie = cookie_name + '_mqcookie';
 
 // Set floatquote cookie
 function setfqcookie(val) {
@@ -53,7 +53,7 @@ function clearmqcookie() {
 function showmqdiv() {
     if (multiquote_ary.length) {
         $('#wrap').append('<div class="multiquote-wrap"><p>' + l_mq_multiquote_action + clearbtn + '</p>' + quotebtn + '</div>');
-        var quote_url = $('#page-body').find('i.fa-quote-left').first().parents('a.button').attr('href') + '&multiquote=' + multiquote_ary.join(';');
+        var quote_url = $('.postbody').find('.hide.postdetails').first().attr('data-quote-url') + '&multiquote=' + multiquote_ary.join(';');
         $('.floatquote').attr('href', quote_url);
         $('.floatquote').addClass('multi');
         $('.floatquote .icon').before(' (' + multiquote_ary.length + ') ');

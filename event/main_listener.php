@@ -30,6 +30,7 @@ class main_listener implements EventSubscriberInterface
     protected $lang;
     protected $fqcookie_suffix = '_fqcookie';
     protected $fqcookie_full = '';
+    protected $mqcookie = 'mqcookie';
 
 
     static public function getSubscribedEvents()
@@ -112,6 +113,10 @@ class main_listener implements EventSubscriberInterface
      */
     public function get_multiquote_content($event)
     {
+        // Clear the cookie
+        $set_time = time() - 31536000;
+        $this->user->set_cookie($this->mqcookie, ' ', $set_time);
+        
         if (($event['mode'] == 'quote') && $this->config['allow_bbcode'])
         {
             $multiquote = $this->request->variable('multiquote', '');
@@ -197,6 +202,6 @@ class main_listener implements EventSubscriberInterface
     private function clear_fqcookie()
     {
         $set_time = time() - 31536000;
-        $this->user->set_cookie($this->fqcookie_full, 'ddd', $set_time);
+        $this->user->set_cookie($this->fqcookie_full, ' ', $set_time);
     }
 }
