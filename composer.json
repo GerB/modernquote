@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Shows and loads new posts in viewtopic",
     "homepage": "",
-    "version": "1.0.3",
-    "time": "2018-10-09",
+    "version": "1.0.4",
+    "time": "2018-10-30",
     "license": "GPL-2.0-only",
     "authors": [
         {

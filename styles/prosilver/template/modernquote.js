@@ -106,33 +106,32 @@ function removebtns() {
         $('.postbody .content').removeClass('hasquotebtn');
     }
 }
-
+    
+// Handle multiquotes
+function multiquote(element) {
+    $('.floatquote').remove();
+    $('.multiquote-wrap').remove();
+    
+    post_id = $(element).attr('data-post-id');
+    multiquote_ary = multiquote_ary.filter(function (item) {
+        return item !== post_id;
+    });
+    if ($(element).hasClass('active-quote')) {
+        $(element).removeClass('active-quote');
+    } else {
+        multiquote_ary.push(post_id);
+        $(element).addClass('active-quote');
+        setmqcookie();
+    }
+    showmqdiv();
+    return;
+}
 
 (function ($) {
     // Load any quotes from cookie when doc ready
     getmqcookie();
     showmqdiv();
-    
-    // Handle multiquotes
-    $('.multiquote').click(function (e) {
-        $('.floatquote').remove();
-        $('.multiquote-wrap').remove();
-
-        var post_id = $(this).attr('data-post-id');
-        multiquote_ary = multiquote_ary.filter(function (item) {
-            return item !== post_id;
-        });
-        if ($(this).hasClass('active-quote')) {
-            $(this).removeClass('active-quote');
-        } else {
-            multiquote_ary.push(post_id);
-            $(this).addClass('active-quote');
-            setmqcookie();
-        }
-        showmqdiv();
-    });
-
-
+   
     // Highlight text for quote
     $('.postbody .content').mouseup(function (e) {
         if (!$(this).hasClass('hasquotebtn')) {
